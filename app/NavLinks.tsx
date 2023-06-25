@@ -1,14 +1,23 @@
-'use client'
+"use client";
 
 import { Categories } from "@/constants";
 import React from "react";
 import NavLink from "./NavLink";
-// import {usePathname} from "next/navigation"
+import { usePathname } from "next/navigation";
 const NavLinks = () => {
+  const pathname = usePathname();
+
+  const isActive = (path: string) => {
+    return pathname?.split("/").pop() === path;
+  };
   return (
-    <nav>
+    <nav className="grid grid-cols-4 md:grid-cols-7 text-sm md:text-sm gap-4 pb-10 max-w-6xl mx-auto border-b ">
       {Categories.map((category) => (
-        <NavLink key={category} category={category} isActive={true} />
+        <NavLink
+          key={category}
+          category={category}
+          isActive={isActive(category)}
+        />
       ))}
     </nav>
   );
